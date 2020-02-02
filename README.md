@@ -39,3 +39,4 @@ The following guides illustrate how to use some features concretely:
 * [Accessing JPA Data with REST](https://spring.io/guides/gs/accessing-data-rest/)
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 * [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+* [Testing In Spring Boot - TestEntityManager](https://www.baeldung.com/spring-boot-testing)
