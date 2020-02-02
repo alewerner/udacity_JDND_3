@@ -4,12 +4,29 @@ Supports operations for writing reviews and listing reviews for a product but wi
 ### Prerequisites
 MySQL needs to be installed and configured. Instructions provided separately.
 
-### Getting Started
-* Configure the MySQL Datasource in application.properties.
-* Add Flyway scripts in src/main/resources/db/migration.
-* Define JPA Entities and relationships.
-* Define Spring Data JPA Repositories.
-* Add tests for JPA Repositories.
+* Connects to your local MySQL instance and creates the reviews database with the following command:
+```
+mysql> create database reviews;
+```
+
+### Running the Application
+
+* Replace the user authentication for connect with your local database configuration. Password and username are located on application.properties.
+```
+spring.datasource.username=<db username goes here>
+spring.datasource.password=<db password goes here>
+```
+
+### How to use this Application:
+All the methos are listed on Swagger.
+Swagger UI: http://localhost:8080/swagger-ui.html
+
+### Features:
+* MySQL Datasource in application.properties.
+* Flyway scripts in src/main/resources/db/migration.
+* JPA Entities and relationships.
+* Spring Data JPA Repositories.
+* Tests for JPA Repositories.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
