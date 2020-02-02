@@ -13,6 +13,7 @@ CREATE TABLE review (
     user_name VARCHAR(100) NOT NULL,
     created_ts TIMESTAMP NOT NULL,
     product_id INT not null,
+    review_points int not null,
     
     PRIMARY KEY (id_review),
     FOREIGN KEY (product_id) REFERENCES product(id)

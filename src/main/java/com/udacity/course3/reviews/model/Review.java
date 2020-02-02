@@ -26,7 +26,7 @@ public class Review {
 
     @Column(name = "title")
     @NotNull
-    private int reviewTitle;
+    private String reviewTitle;
 
     @Column(name = "reviewText")
     @NotNull
@@ -38,6 +38,10 @@ public class Review {
 
     @Column(name = "created_ts")
     private LocalDateTime reviewCreatedTime;
+
+    @Column(name = "review_points")
+    @NotNull
+    private int reviewPoints;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
