@@ -39,6 +39,10 @@ public class ProductRepositoryTests {
     static final String product_name = "Product 1";
     static final String product_description = "This Product is very useful";
 
+    /**
+     * Creates pre-requisites for testing, such as an example product
+     * and persist it on a H2 database in memory.
+     */
     @Before
     public void setup() {
         Product product = new Product();
@@ -49,6 +53,9 @@ public class ProductRepositoryTests {
         testEntityManager.persist(product);
     }
 
+    /**
+     * Tests for successful find all products in database
+     */
     @Test
     public void asserFindAll() {
         int productListSize = 1;
@@ -58,6 +65,9 @@ public class ProductRepositoryTests {
         assertEquals(productListSize, actual.size());
     }
 
+    /**
+     * Tests for successful find a product for a given Id
+     */
     @Test
     public void asserFindById() {
 
@@ -66,6 +76,9 @@ public class ProductRepositoryTests {
         assertEquals(product_name, actual.getProductName());
     }
 
+    /**
+     * Tests for successful save product in the database
+     */
     @Test
     public void assertSaveProduct() {
         Product product = repository.findById(1).get();
@@ -76,6 +89,9 @@ public class ProductRepositoryTests {
         assertEquals(product.getProductDescription(), actual.getProductDescription());
     }
 
+    /**
+     * Tests for successful deletion of a product
+     */
     @Test
     public void assertDeleteProduct() {
         Product product = repository.findById(1).get();

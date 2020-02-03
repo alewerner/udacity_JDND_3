@@ -1,5 +1,7 @@
 package com.udacity.course3.reviews.repository;
 
+import com.udacity.course3.reviews.model.Comment;
+import com.udacity.course3.reviews.model.Product;
 import com.udacity.course3.reviews.model.Review;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,6 +38,12 @@ public class ReviewRepositoryTest {
     private ReviewRepository repository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
     private TestEntityManager testEntityManager;
 
     static final String review_text = "Review very good";
@@ -42,6 +51,10 @@ public class ReviewRepositoryTest {
     static final String review_title = "Review one";
     static final int review_points = 10;
 
+    /**
+     * Creates pre-requisites for testing, such as an example review, comment and product
+     * and persist it on a H2 database in memory..
+     */
     @Before
     public void setup() {
         Review review = new Review();
@@ -52,8 +65,26 @@ public class ReviewRepositoryTest {
         review.setReviewPoints(review_points);
 
         testEntityManager.persist(review);
+
+        Product product = new Product();
+        product.setProductDescription("Prod 1 is good for testing");
+        product.setProductName("Prod 1");
+        product.setCreatedTime(LocalDateTime.now());
+
+        testEntityManager.persist(product);
+
+        Comment comment = new Comment();
+        comment.setCommentText("Prod 1 solve my problem!");
+        comment.setCommentUsername("Alexandre");
+        comment.setCommentCreated_datetime(LocalDateTime.now());
+        comment.setCommentTitle("Prod 1");
+
+        testEntityManager.persist(comment);
     }
 
+    /**
+     * Tests for successful find all reviews in the system
+     */
     @Test
     public void assertFindAll() {
         int reviewListSize = 1;
@@ -63,6 +94,9 @@ public class ReviewRepositoryTest {
         assertEquals(reviewListSize, actual.size());
     }
 
+    /**
+     * Tests for successful find a review for a given Id
+     */
     @Test
     public void assertFindById() {
         Review actual = repository.findById(1).get();
@@ -70,17 +104,36 @@ public class ReviewRepositoryTest {
         assertEquals(review_title, actual.getReviewTitle());
     }
 
+    /**
+     * Tests for successful save review in the database
+     * with comment and product
+     */
     @Test
     public void assertSaveReview() {
 
         Review review = repository.findById(1).get();
         review.setReviewPoints(8);
 
+        Product product = productRepository.findById(1).get();
+
+        review.setProduct(product);
+
+        Comment comment = commentRepository.findById(1).get();
+        List<Comment> commentList = new ArrayList<>();
+        commentList.add(comment);
+
+        review.setComments(commentList);
+
         Review actual = repository.save(review);
 
         assertEquals(review.getReviewPoints(), actual.getReviewPoints());
+        assertEquals(review.getProduct(), actual.getProduct());
+        assertEquals(review.getComments().size(), 1);
     }
 
+    /**
+     * Tests for successful deletion of a review
+     */
     @Test
     public void assertDeleteReview() {
 

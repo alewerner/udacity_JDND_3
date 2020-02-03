@@ -36,6 +36,10 @@ public class CommentRepositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
+    /**
+     * Creates pre-requisites for testing, such as an example comment
+     * and persist it on a H2 database in memory..
+     */
     @Before
     public void setup() {
         Comment comment = new Comment();
@@ -48,6 +52,9 @@ public class CommentRepositoryTest {
         this.testEntityManager.persist(comment);
     }
 
+    /**
+     * Tests for successful find all comments in the system
+     */
     @Test
     public void assertFindAll() {
         int listSize = 1;
@@ -58,6 +65,9 @@ public class CommentRepositoryTest {
         assertEquals(listSize, actual.size());
     }
 
+    /**
+     * Tests for successful find a comment for a given Id
+     */
     @Test
     public void asserFindById() {
         int idComment = 1;
@@ -68,6 +78,9 @@ public class CommentRepositoryTest {
         assertEquals("Alexandre", actual.getCommentUsername());
     }
 
+    /**
+     * Tests for successful save comment in the database
+     */
     @Test
     public void assertSaveComment() {
         int idComment = 1;
@@ -84,6 +97,9 @@ public class CommentRepositoryTest {
         assertEquals(comment.getCommentTitle(), actual.getCommentTitle());
     }
 
+    /**
+     * Tests for successful deletion of a comment
+     */
     @Test
     public void assertCommentIsDeleted() {
 
