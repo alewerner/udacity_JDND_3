@@ -48,7 +48,7 @@ public class Review {
     @JsonIgnore
     private Product product;
 
-    @OneToMany(mappedBy = "review", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "review", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
 }

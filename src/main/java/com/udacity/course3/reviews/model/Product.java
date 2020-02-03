@@ -32,6 +32,6 @@ public class Product {
     @Column(name = "created_time")
     private LocalDateTime createdTime;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Review> reviews;
 }
