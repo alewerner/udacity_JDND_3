@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import java.util.Optional;
  * Spring REST controller for working with review entity.
  */
 @RestController
+@Validated
 @RequestMapping("/reviews")
 public class ReviewsController {
 
@@ -39,7 +41,7 @@ public class ReviewsController {
      * @param productId
      * @return The created review or 404 if product id is not found.
      */
-    @RequestMapping(value = "/reviews/products/{productId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/products/{productId}", method = RequestMethod.POST)
     @ApiOperation(value = "Creates a review for a given Id product")
     public ResponseEntity<?> createReviewForProduct(@PathVariable("productId")  Integer productId, @Valid @RequestBody Review review) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
@@ -64,7 +66,7 @@ public class ReviewsController {
      * @param productId The id of the product.
      * @return The list of reviews.
      */
-    @RequestMapping(value = "/reviews/products/{productId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/products/{productId}", method = RequestMethod.GET)
     @ApiOperation(value = "Returns a list of Reviews of a given product")
     public ResponseEntity<List<?>> listReviewsForProduct(@PathVariable("productId") Integer productId) {
         List<Review> reviewList = reviewRepository.findByProductId(productId);

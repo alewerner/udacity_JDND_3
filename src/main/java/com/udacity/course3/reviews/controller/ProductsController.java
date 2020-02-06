@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import java.util.Optional;
  * Spring REST controller for working with product entity.
  */
 @RestController
+@Validated
 @RequestMapping("/products")
 public class ProductsController {
 
@@ -35,14 +37,15 @@ public class ProductsController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Creates a product from a valid RequestBody")
-    public void createProduct(@Valid @RequestBody Product product) {
+    public ResponseEntity<?> createProduct(@Valid @RequestBody Product product) {
 
         if (product.getCreatedTime() == null) {
             product.setCreatedTime(LocalDateTime.now());
         }
 
-        productRepository.save(product);
+        Product result = productRepository.save(product);
 
+        return ResponseEntity.ok(result);
     }
 
     /**

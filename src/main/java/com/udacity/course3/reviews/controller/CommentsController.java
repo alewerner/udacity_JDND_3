@@ -7,6 +7,7 @@ import com.udacity.course3.reviews.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import java.util.Optional;
  * Spring REST controller for working with comment entity.
  */
 @RestController
+@Validated
 @RequestMapping("/comments")
 public class CommentsController {
 

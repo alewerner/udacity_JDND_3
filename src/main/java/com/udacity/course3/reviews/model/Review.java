@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,21 +27,24 @@ public class Review {
 
     @Column(name = "title")
     @NotNull
+    @NotEmpty(message = "Please provide a review title")
     private String reviewTitle;
 
     @Column(name = "reviewText")
     @NotNull
+    @NotEmpty(message = "Please provide a review text")
     private String reviewText;
 
     @Column(name = "user_name")
     @NotNull
+    @NotEmpty(message = "Please provide a review user name")
     private String reviewUsername;
 
     @Column(name = "created_ts")
     private LocalDateTime reviewCreatedTime;
 
     @Column(name = "review_points")
-    @NotNull
+    @NotNull(message = "Please provide points")
     private int reviewPoints;
 
     @ManyToOne

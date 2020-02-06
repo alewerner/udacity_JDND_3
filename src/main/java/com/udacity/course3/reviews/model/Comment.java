@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -27,10 +28,12 @@ public class Comment {
     private String commentTitle;
 
     @Column(name = "comment_text")
+    @NotEmpty(message = "Please provide a comment text")
     @NotNull
     private String commentText;
 
     @Column(name = "user_name")
+    @NotEmpty(message = "Please provide a user name")
     @NotNull
     private String commentUsername;
 
