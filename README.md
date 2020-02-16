@@ -9,6 +9,13 @@ MySQL needs to be installed and configured. Instructions provided separately.
 mysql> create database reviewMongos;
 ```
 
+MongoDB needs to be installed and configured. Login to your local instance, with your user and password and then create the database:
+
+```
+use reviews
+> db.createCollection("reviews")
+```
+
 ### Running the Application
 
 * Replace the user authentication for connect with your local database configuration. Password and username are located on application.properties.
