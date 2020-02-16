@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.udacity.course3</groupId>
-	<artifactId>reviews</artifactId>
+	<artifactId>reviewMongos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reviews</name>
+	<name>reviewMongos</name>
 	<description>Midterm Project for Data Stores and Persistence</description>
 
 	<properties>
@@ -70,6 +70,18 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.10</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- Mongo DB dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

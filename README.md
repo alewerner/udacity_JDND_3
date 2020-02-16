@@ -1,12 +1,12 @@
 # Reviews API 
-Supports operations for writing reviews and listing reviews for a product but with no sorting or filtering.
+Supports operations for writing reviewMongos and listing reviewMongos for a productMongo but with no sorting or filtering.
 
 ### Prerequisites
 MySQL needs to be installed and configured. Instructions provided separately.
 
-* Connects to your local MySQL instance and creates the reviews database with the following command:
+* Connects to your local MySQL instance and creates the reviewMongos database with the following command:
 ```
-mysql> create database reviews;
+mysql> create database reviewMongos;
 ```
 
 ### Running the Application

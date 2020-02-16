@@ -40,6 +40,7 @@ public class CommentRepositoryTest {
      * Creates pre-requisites for testing, such as an example comment
      * and persist it on a H2 database in memory..
      */
+
     @Before
     public void setup() {
         Comment comment = new Comment();

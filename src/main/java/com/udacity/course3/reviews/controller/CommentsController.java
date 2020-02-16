@@ -2,8 +2,11 @@ package com.udacity.course3.reviews.controller;
 
 import com.udacity.course3.reviews.model.Comment;
 import com.udacity.course3.reviews.model.Review;
+import com.udacity.course3.reviews.model.mongodb.CommentMongo;
 import com.udacity.course3.reviews.repository.CommentRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
+import com.udacity.course3.reviews.service.MongoService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,9 @@ public class CommentsController {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private MongoService mongoService;
+
     /**
      * Creates a comment for a review.
      *
@@ -39,13 +45,16 @@ public class CommentsController {
      * @param reviewId
      */
     @RequestMapping(value = "/reviews/{reviewId}", method = RequestMethod.POST)
+    @ApiOperation(value = "Creates a comment from a valid RequestBody")
     public ResponseEntity<?> createCommentForReview(@PathVariable("reviewId") Integer reviewId, @Valid @RequestBody Comment comment) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);
 
         if (optionalReview.isPresent()) {
             Comment comment1 = commentRepository.save(comment);
 
-            return  ResponseEntity.ok(comment1);
+            CommentMongo commentMongo = mongoService.saveComment(reviewId, comment1);
+
+            return  ResponseEntity.ok(commentMongo);
 
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -61,6 +70,7 @@ public class CommentsController {
      *
      * @param reviewId
      */
+    @ApiOperation(value = "Search a review from a comment from a valid RequestBody")
     @RequestMapping(value = "/reviews/{reviewId}", method = RequestMethod.GET)
     public ResponseEntity<List<?>> listCommentsForReview(@PathVariable("reviewId") Integer reviewId) {
         Optional<Review> optionalReview = reviewRepository.findById(reviewId);

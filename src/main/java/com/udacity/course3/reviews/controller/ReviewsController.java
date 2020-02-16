@@ -2,8 +2,10 @@ package com.udacity.course3.reviews.controller;
 
 import com.udacity.course3.reviews.model.Product;
 import com.udacity.course3.reviews.model.Review;
+import com.udacity.course3.reviews.model.mongodb.ReviewMongo;
 import com.udacity.course3.reviews.repository.ProductRepository;
 import com.udacity.course3.reviews.repository.ReviewRepository;
+import com.udacity.course3.reviews.service.MongoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,8 @@ public class ReviewsController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private MongoService mongoService;
     /**
      * Creates a review for a product.
      * <p>
@@ -53,7 +57,11 @@ public class ReviewsController {
                 review.setReviewCreatedTime(LocalDateTime.now());
             }
 
-            return ResponseEntity.ok(reviewRepository.save(review));
+            Review newReview = reviewRepository.save(review);
+
+            ReviewMongo reviewMongo = mongoService.saveReview(newReview);
+
+            return ResponseEntity.ok(reviewMongo);
 
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,6 +79,12 @@ public class ReviewsController {
     public ResponseEntity<List<?>> listReviewsForProduct(@PathVariable("productId") Integer productId) {
         List<Review> reviewList = reviewRepository.findByProductId(productId);
 
-        return ResponseEntity.ok(reviewList);
+        List<ReviewMongo> reviewsMongo = mongoService.findAllByProductId(productId);
+
+        if (reviewsMongo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(reviewsMongo);
+        }
     }
 }
